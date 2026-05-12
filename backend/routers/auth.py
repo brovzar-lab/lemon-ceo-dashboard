@@ -51,7 +51,8 @@ def google_callback(request: Request, response: Response, code: str, state: str 
         db.add(session)
         db.commit()
 
-    redirect = RedirectResponse(url=os.environ.get("FRONTEND_URL", "/"))
+    frontend_url = os.environ.get("FRONTEND_URL", "").rstrip("/")
+    redirect = RedirectResponse(url=f"{frontend_url}/dashboard")
     set_session_cookie(redirect, session_id)
     return redirect
 

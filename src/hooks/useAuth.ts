@@ -7,6 +7,13 @@ const DEMO_USER: AuthUser = {
   name: 'Demo User',
 };
 
+interface MeResponse {
+  authenticated: boolean;
+  email?: string;
+  name?: string;
+  picture?: string;
+}
+
 export function useAuth() {
   return useQuery<AuthUser | null>({
     queryKey: ['auth-me'],
@@ -14,7 +21,9 @@ export function useAuth() {
       ? async () => null
       : async () => {
           try {
-            return await api.get<AuthUser>('/auth/me');
+            const res = await api.get<MeResponse>('/auth/me');
+            if (!res.authenticated) return null;
+            return { email: res.email ?? '', name: res.name ?? '', picture: res.picture };
           } catch {
             return null;
           }
