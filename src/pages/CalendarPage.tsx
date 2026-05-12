@@ -1,10 +1,8 @@
-// useState available for future week navigation
-import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
-import { MOCK_WEEK_EVENTS } from '../data/mockData';
 import { DemoBadge } from '../components/DemoBadge';
 import { SidebarNav } from '../components/SidebarNav';
 import { isDemoMode } from '../lib/demo';
+import { useCalendarWeek } from '../hooks/useCalendar';
 import type { CalendarEvent } from '../types';
 
 const HOURS = Array.from({ length: 14 }, (_, i) => i + 8); // 8am–9pm
@@ -59,11 +57,7 @@ export function CalendarPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedId = searchParams.get('id');
 
-  const { data: events = [] } = useQuery<CalendarEvent[]>({
-    queryKey: ['events-week'],
-    queryFn: async () => MOCK_WEEK_EVENTS,
-    staleTime: Infinity,
-  });
+  const { data: events = [] } = useCalendarWeek();
 
   const weekDays = getWeekDays(today);
   const selected = events.find((e) => e.id === selectedId);

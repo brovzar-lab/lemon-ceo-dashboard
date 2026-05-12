@@ -11,6 +11,36 @@ export interface Email {
   isRead: boolean;
 }
 
+// Backend API response shapes (snake_case from FastAPI)
+export interface BackendEmail {
+  id: string;
+  from: string;
+  from_email: string;
+  subject: string;
+  snippet: string;
+  body: string;
+  date: string;
+  is_important: boolean;
+  is_read: boolean;
+}
+
+export interface BackendCalendarEvent {
+  id: string;
+  title: string;
+  start: string;
+  end: string;
+  location?: string;
+  attendees?: number;
+  description?: string;
+  hangout_link?: string;
+}
+
+export interface AuthUser {
+  email: string;
+  name: string;
+  picture?: string;
+}
+
 export interface CalendarEvent {
   id: string;
   title: string;

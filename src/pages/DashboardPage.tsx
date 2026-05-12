@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { MOCK_EMAILS, MOCK_EVENTS } from '../data/mockData';
 import { DemoBadge } from '../components/DemoBadge';
 import { SidebarNav } from '../components/SidebarNav';
 import { isDemoMode } from '../lib/demo';
+import { useImportantEmails } from '../hooks/useEmails';
+import { useCalendarToday } from '../hooks/useCalendar';
 import type { Email, CalendarEvent } from '../types';
 
 function formatTime(iso: string) {
@@ -63,17 +63,8 @@ function EmailRow({ email, onToggleImportant }: { email: Email; onToggleImportan
 }
 
 export function DashboardPage() {
-  const { data: emails = [] } = useQuery<Email[]>({
-    queryKey: ['emails'],
-    queryFn: async () => MOCK_EMAILS,
-    staleTime: Infinity,
-  });
-
-  const { data: events = [] } = useQuery<CalendarEvent[]>({
-    queryKey: ['events-today'],
-    queryFn: async () => MOCK_EVENTS,
-    staleTime: Infinity,
-  });
+  const { data: emails = [] } = useImportantEmails();
+  const { data: events = [] } = useCalendarToday();
 
   const handleToggleImportant = () => {
     if (isDemoMode) {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { MOCK_PROJECTS } from '../data/mockData';
+import { MOCK_PROJECTS } from '../data/mockData'; // projects are demo-only in v1
 import { DemoBadge } from '../components/DemoBadge';
 import { SidebarNav } from '../components/SidebarNav';
 import { isDemoMode } from '../lib/demo';

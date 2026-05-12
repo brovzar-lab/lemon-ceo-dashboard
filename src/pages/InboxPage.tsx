@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { MOCK_EMAILS } from '../data/mockData';
 import { DemoBadge } from '../components/DemoBadge';
 import { SidebarNav } from '../components/SidebarNav';
 import { isDemoMode } from '../lib/demo';
-import type { Email } from '../types';
+import { useEmails } from '../hooks/useEmails';
 
 type Filter = 'All' | 'Important' | 'Unread';
 
@@ -25,11 +23,7 @@ export function InboxPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedId = searchParams.get('id');
 
-  const { data: emails = [] } = useQuery<Email[]>({
-    queryKey: ['emails'],
-    queryFn: async () => MOCK_EMAILS,
-    staleTime: Infinity,
-  });
+  const { data: emails = [] } = useEmails();
 
   const filtered = emails.filter((e) => {
     if (filter === 'Important') return e.isImportant;
