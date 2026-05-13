@@ -1,4 +1,4 @@
-import type { Email, CalendarEvent, Project } from '../types';
+import type { Email, CalendarEvent, Project, EmailAI } from '../types';
 
 export const MOCK_EMAILS: Email[] = [
   {
@@ -261,6 +261,108 @@ export const MOCK_WEEK_EVENTS: CalendarEvent[] = [
     description: 'Marcus Webb presenting Neon Sunset lead candidate.',
   },
 ];
+
+export const MOCK_EMAIL_AI: Record<string, EmailAI> = {
+  '1': {
+    summary: 'Sarah needs a decision on The Last Reel distribution rights by Friday EOD. Deal terms are favorable.',
+    priorityScore: 9,
+    priorityReason: 'Deal deadline, known VIP sender',
+    actionItems: ['Respond by Friday EOD', 'Schedule call to finalize international split', 'Loop in legal on APAC terms'],
+    category: 'deal',
+  },
+  '2': {
+    summary: 'WME is pitching a named actor for Neon Sunset. Sundance winner, available for shoot window — window closes next week.',
+    priorityScore: 8,
+    priorityReason: 'Casting window closes next week, high-profile opportunity',
+    actionItems: ['Schedule call with Marcus Webb this week', 'Review client reel before meeting'],
+    category: 'deal',
+  },
+  '3': {
+    summary: 'Act II revision complete at 94 pages — writer says the turning point lands stronger. No rush before Friday.',
+    priorityScore: 5,
+    priorityReason: 'Active project, soft deadline Friday',
+    actionItems: ['Review Act II draft before Friday', 'Send notes to James by EOD Friday'],
+    category: 'crew',
+  },
+  '4': {
+    summary: 'Standard catering vendor contract, non-urgent. Legal has reviewed and flagged one clause.',
+    priorityScore: 4,
+    priorityReason: 'Routine contract, no deadline pressure',
+    actionItems: ['Sign vendor contract by end of week'],
+    category: 'legal',
+  },
+  '5': {
+    summary: 'Invoice #2847 for $48,500 in March cinematography services on The Last Reel. Net 30 payment terms.',
+    priorityScore: 3,
+    priorityReason: 'Routine vendor invoice, no urgency',
+    actionItems: ['Route invoice to finance for Net 30 payment'],
+    category: 'vendor',
+  },
+  '6': {
+    summary: 'Three color grades delivered for Echoes of Vienna. Colorist recommends Vienna Winter look. Festival deadline is the 20th.',
+    priorityScore: 7,
+    priorityReason: 'Festival delivery deadline approaching',
+    actionItems: ['Review three color grade options', 'Select final look before the 20th', 'Confirm colorist delivery timeline'],
+    category: 'crew',
+  },
+  '7': {
+    summary: 'TIFF 2026 submission for The Last Reel confirmed — reference TF26-8841. Programming decisions by June 15.',
+    priorityScore: 5,
+    priorityReason: 'Important festival milestone, no immediate action needed',
+    actionItems: [],
+    category: 'other',
+  },
+  '8': {
+    summary: 'Q1 budget healthy — The Last Reel 4% under budget. All projects within approved ranges.',
+    priorityScore: 3,
+    priorityReason: 'Informational report, no urgent action',
+    actionItems: ['Review full budget deck before Thursday board meeting'],
+    category: 'other',
+  },
+  '9': {
+    summary: 'The Last Reel wraps Friday. Crew wrap party confirmed 8 PM at The Breslin — you\'re on the list.',
+    priorityScore: 2,
+    priorityReason: 'Social / logistics, low urgency',
+    actionItems: ['Attend wrap party Friday at 8 PM'],
+    category: 'crew',
+  },
+  '10': {
+    summary: 'Three Morocco locations shortlisted for Desert Protocol. Photo deck attached, awaiting your feedback.',
+    priorityScore: 4,
+    priorityReason: 'Pre-production milestone, no hard deadline',
+    actionItems: ['Review Morocco location photo deck', 'Send feedback to Marcus Kim'],
+    category: 'crew',
+  },
+  '11': {
+    summary: 'Planned server maintenance Sunday 2–4 AM ET. Email briefly unavailable, no action needed.',
+    priorityScore: 1,
+    priorityReason: 'Informational IT notice',
+    actionItems: [],
+    category: 'other',
+  },
+  '12': {
+    summary: 'CAA revised casting shortlist for Desert Protocol — three A-list options, all available for your shoot window.',
+    priorityScore: 7,
+    priorityReason: 'Active casting decision needed, high-profile project',
+    actionItems: ['Schedule CAA call tomorrow', 'Review availability confirmations', 'Cross-reference with WME offer on Neon Sunset'],
+    category: 'deal',
+  },
+};
+
+export const MOCK_DRAFT_REPLIES: Record<string, string> = {
+  '1': `Hi Sarah,\n\nThank you for the update — great to hear legal is aligned on both sides. The 72-hour theatrical window works for us.\n\nFor the international split, let's get on a call Thursday afternoon if you're available. I'd like to loop in our international sales team for the APAC conversation specifically.\n\nLooking forward to closing this.\n\nBest,\nBilly`,
+  '2': `Hi Marcus,\n\nThanks for thinking of us — the timing is genuinely good. We're actively casting the lead for Neon Sunset.\n\nCould you send over her reel and a recent credit list before we meet? I'd want to review ahead of a call. I have availability Wednesday afternoon or Friday morning.\n\nBest,\nBilly`,
+  '3': `James,\n\nThanks for sending this over. I'll clear time Thursday morning to give Act II a proper read.\n\nThe note about the protagonist's motivation was exactly the right thread to pull — looking forward to seeing how the confrontation scene landed.\n\nBilly`,
+  '4': `Team,\n\nThanks for the heads up. I'll review the flagged clause before signing. Can you send me a redline of the changes from last cycle so I can see what shifted?\n\nBilly`,
+  '6': `Anna,\n\nI'll block time this week to review the three grades. The Vienna Winter recommendation sounds right to me directionally — let me confirm after I see the comparisons.\n\nCan you send the screengrab links directly? The attachment may have gotten filtered.\n\nBilly`,
+  '12': `Hey,\n\nGreat — let's talk tomorrow. Can we do 10 AM? I'll have my team send over the Desert Protocol brief so your agents have full context on the role.\n\nLooking forward to the conversation.\n\nBilly`,
+};
+
+const DEFAULT_DRAFT = `Hi,\n\nThanks for your message. I've reviewed the details and will follow up with more information shortly.\n\nBest,\nBilly`;
+
+export function getMockDraft(emailId: string): string {
+  return MOCK_DRAFT_REPLIES[emailId] ?? DEFAULT_DRAFT;
+}
 
 export const MOCK_PROJECTS: Project[] = [
   {

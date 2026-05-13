@@ -1,3 +1,13 @@
+export type EmailCategory = 'deal' | 'crew' | 'legal' | 'vendor' | 'personal' | 'other';
+
+export interface EmailAI {
+  summary: string;
+  priorityScore: number;
+  priorityReason: string;
+  actionItems: string[];
+  category: EmailCategory;
+}
+
 export interface Email {
   id: string;
   from: string;
